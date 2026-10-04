@@ -307,6 +307,10 @@ public final class JsonCompare {
             }
         }
 
+        public boolean shouldSanitize() {
+            return shouldSanitize;
+        }
+
         public void setShouldSanitize(boolean shouldSanitize) {
             this.shouldSanitize = shouldSanitize;
         }

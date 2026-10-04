@@ -163,8 +163,11 @@ public class RecipeTransformer {
      */
     private Set<RecipeLink.DuplicateLink> handleDuplicates(Collection<RecipeLink> recipeLinks, List<RecipeLink> linksToCompare) {
         Set<RecipeLink.DuplicateLink> duplicates = new HashSet<>(recipeLinks.size());
+        DuplicateGroups.Index index = DuplicateGroups.Index.prepare(duplicationConfig, linksToCompare);
         for (RecipeLink recipeLink : recipeLinks) {
-            if (handleDuplicate(recipeLink, linksToCompare) && recipeLink.getDuplicateLink() != null) {
+            boolean found = index != null && index.position.containsKey(recipeLink)
+                    ? index.handle(recipeLink) : handleDuplicate(recipeLink, linksToCompare);
+            if (found && recipeLink.getDuplicateLink() != null) {
                 duplicates.add(recipeLink.getDuplicateLink());
             }
         }

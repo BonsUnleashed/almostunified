@@ -142,8 +142,12 @@ public final class RecipeLink {
         this.unifiedRecipe = json;
     }
 
+    boolean isCraftingRecipe() {
+        return isCraftingRecipe;
+    }
+
     @Nullable
-    private Item getCraftingRecipeOutput() {
+    Item getCraftingRecipeOutput() {
         if (craftingRecipeOutput == null) {
             JsonObject recipe = unifiedRecipe == null ? originalRecipe : unifiedRecipe;
             try {
